@@ -1,7 +1,7 @@
 # merged-pcap-conversations
-Quick bash script to merge tcp and udp conversations from a pcap into one view and sorted by time; uses tshark to find conversations
+Born out of the frustration of flipping between the tcp and udp tabs in Wireshark's conversation view when trying to understand the flow of what occured
 
-Makes it easier to understand what happened in a pcap without flipping between the two tabs in Wireshark
+Currently, just one quick bash script that merges tcp and udp conversations from a pcap into one view and sorts by time; uses tshark to pull the conversations; might add new variants if the need arises
 
 Setup: git clone https://github.com/grecs/merge-pcap-conversations.git
 Update: Update: git pull origin master (from within merge-pcap-conversations folder)
