@@ -7,5 +7,4 @@ Setup: git clone https://github.com/grecs/merge-pcap-conversations.git
 
 Update: Update: git pull origin master (from within merge-pcap-conversations folder)
 
-Use:
-  merge-tcpudp <pcap file>
+Use: merge-tcpudp [pcap file]
