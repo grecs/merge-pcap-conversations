@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Pull PCAP file from passed argument (others: source and destination IP or port
+# filter, list of the types of conversations to include - ipv4, ipv6, icmp, tcp,
+# udp)
+PCAPFILE = $1
+
+# Extract tcp sessions and indicate tcp in new column
+tshark -q -z conv,tcp -r $PCAPFILE | sed 's/^/tcp /g' > _tcpudpconv.tmp
+
+# Extract udp sessions and indicate udp in new column
+tshark -q -z conv,udp -r $PCAPFILE | sed 's/^/udp /g' >> _tcpudpconv.tmp
+
+# Strip out default tshark headers
+egrep -v "====|Conversations|Filter" _tcpudpconv.tmp > _tcpudpconv.tmp
+
+# Rearrange columns to be similar to Wireshark and remove ones not needed
+awk '{print $1, $3, “tcp”, $8,  $9, $6, $7, $4, $5, $10, $11} _tcpudpconv.tmp >
+_tcpudpconv.tmp
+
+# Print out the results - including custom headers and data sorted by Relative
+# Time
+sort -n -k 10 _tcpudpconv.tmp > _tcpudpconv.tmp
+
+# Remove temp file used to consolidate results
+rm _tcpudpconv.tmp
